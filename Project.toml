@@ -1,0 +1,12 @@
+name = "VideoInTerminal"
+uuid = "fe78766d-d86f-4def-9738-c8aafeffc8a7"
+version = "0.1.0"
+
+[deps]
+ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
+ImageInTerminal = "d8c32880-2388-543b-8c61-d9f865259254"
+TestImages = "5e47fb64-e119-507b-a336-dd2b206d9990"
+VideoIO = "d6d074c3-1acf-5d4c-9a43-ef38773959a2"
+
+[compat]
+julia = "1"
