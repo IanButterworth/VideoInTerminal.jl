@@ -27,13 +27,13 @@ Play a video from a path
 ```julia
 julia> play("path/to/video.mp4")
 ```
-![ffmpeg test video example](https://ianbtw.com/home/images/github_images/ffmpeg_test.gif)
+![ffmpeg test video example](ffmpeg_test.gif)
 
 View the default webcam
 ```julia
 julia> webcam()
 ```
-![streaming webcam example](https://ianbtw.com/home/images/github_images/webcam.gif)
+![streaming webcam example](webcam.gif)
 
 [VideoIO's test videos](https://juliaio.github.io/VideoIO.jl/stable/utilities/#Test-Videos) can also be accessed by name,
 which will be automatically downloaded
