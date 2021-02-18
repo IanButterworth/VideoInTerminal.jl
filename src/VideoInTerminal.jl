@@ -161,7 +161,8 @@ function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io)
     end
     return
 end
-function play(io::IO, framestack::Vector{Matrix{T}}; fps::Real=30, maxsize::Tuple = displaysize(io)) where {T<:Colorant}
+function play(io::IO, framestack::Vector{T}; fps::Real=30, maxsize::Tuple = displaysize(io)) where {T<:AbstractArray}
+    @assert eltype(framestack[1]) <: Colorant
     # sizing
     img_w, img_h = size(framestack[1])
     io_h, io_w = maxsize
