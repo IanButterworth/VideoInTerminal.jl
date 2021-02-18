@@ -72,9 +72,9 @@ webcam(; kwargs...) = webcam(stdout; stream=true, kwargs...)
     play(v; kwargs...)
     play(io::IO, fpath::String; kwargs...)
     play(io::IO, vreader::T; kwargs...) where {T<:VideoIO.VideoReader}
-    play(io::IO, framestack::Vector{Matrix{T}}; kwargs...) where {T<:Colorant}
+    play(io::IO, framestack::Vector{T}; kwargs...) where {T<:AbstractArray}
 
-Play a video at a filepath, a VideoIO.VideoReader object, or a framestack.
+Play a video at a filepath, a VideoIO.VideoReader object, or a framestack with a Colorant element type.
 
 Framestacks should be vectors of images with a Colorant element type.
 
