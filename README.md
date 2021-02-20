@@ -43,7 +43,7 @@ julia> using VideoInTerminal, TestImages
 
 julia> img = testimage("mri-stack");
 
-julia> explore(img, 3) # explore img along the 3rd dimension, use `o`, and `[` keys to move
+julia> explore(img, 3) # explore img along the 3rd dimension, use arrow keys to move
 ```
 ![mri example](mri_example.png)
 
