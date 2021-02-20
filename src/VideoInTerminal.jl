@@ -11,10 +11,10 @@ Video playback in the terminal via. ImageInTerminal and VideoIO
 - `testvideo(name)` to show a VideoIO test video, such as "annie_oakley", or "ladybird"
 
 Control keys:
-- `p`: pause
-- `o`: step backward (in array & framestack mode)
-- `[`: step forward (in array & framestack mode)
-- `ctrl-c`: exit
+- `p` or `space-bar`: pause
+- `o`, `left-` or `up-arrow`: step backward (in framestack mode)
+- `[`, `right-` or `down-arrow`: step forward (in framestack mode)
+- `ctrl-c` or `q`: exit
 
 `ImageInTerminal` core controls are accessible:
 - `VideoInTerminal.use_24bit()` force using 24-bit color
@@ -43,8 +43,8 @@ setraw!(io, raw) = ccall(:jl_tty_set_mode, Int32, (Ptr{Cvoid},Int32), io.handle,
 Display a VideoIO named test video.
 
 Control keys:
-- `p`: pause
-- `ctrl-c`: exit
+- `p` or `space-bar`: pause
+- `ctrl-c` or `q`: exit
 
 kwargs:
 - `fps::Real=30`
@@ -64,8 +64,8 @@ Display system camera. Defaults to first from the list that FFMPEG populates.
 i.e. `VideoInTerminal.VideoIO.CAMERA_DEVICES`
 
 Control keys:
-- `p`: pause
-- `ctrl-c`: exit
+- `p` or `space-bar`: pause
+- `ctrl-c` or `q`: exit
 
 kwargs:
 - `maxsize::Tuple = displaysize(io)``
@@ -91,10 +91,10 @@ Play a video at a filepath, a VideoIO.VideoReader object, or a framestack with a
 Framestacks should be vectors of images with a Colorant element type.
 
 Control keys:
-- `p` or space-bar: pause
-- `o`, left or up arrows: step backward (in framestack mode)
-- `[`, right or down arrows: step forward (in framestack mode)
-- `ctrl-c`: exit
+- `p` or `space-bar`: pause
+- `o`, `left-` or `up-arrow`: step backward (in framestack mode)
+- `[`, `right-` or `down-arrow`: step forward (in framestack mode)
+- `ctrl-c` or `q`: exit
 
 kwargs:
 - `fps::Real=30`

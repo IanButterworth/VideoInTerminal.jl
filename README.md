@@ -28,9 +28,9 @@ kwargs:
 - `maxsize::Tuple`: specify a max video size in terminal characters. Default is determined from terminal window size
 
 ### Control keys:
-- `p` or space-bar: pause
-- `o`, left or up arrows: step backward (in framestack mode)
-- `[`, right or down arrows: step forward (in framestack mode)
+- `p` or `space-bar`: pause
+- `o`, `left-` or `up-arrow`: step backward (in framestack mode)
+- `[`, `right-` or `down-arrow`: step forward (in framestack mode)
 - `ctrl-c` or `q`: exit
 
 ### Explore
