@@ -12,8 +12,8 @@ Video playback in the terminal via. ImageInTerminal and VideoIO
 
 Control keys:
 - `p` or `space-bar`: pause
-- `o`, `left-` or `up-arrow`: step backward (in framestack mode)
-- `[`, `right-` or `down-arrow`: step forward (in framestack mode)
+- `left-` or `up-arrow`: step backward (in framestack mode)
+- right-` or `down-arrow`: step forward (in framestack mode)
 - `ctrl-c` or `q`: exit
 
 `ImageInTerminal` core controls are accessible:
@@ -92,8 +92,8 @@ Framestacks should be vectors of images with a Colorant element type.
 
 Control keys:
 - `p` or `space-bar`: pause
-- `o`, `left-` or `up-arrow`: step backward (in framestack mode)
-- `[`, `right-` or `down-arrow`: step forward (in framestack mode)
+- `left-` or `up-arrow`: step backward (in framestack mode)
+- `right-` or `down-arrow`: step forward (in framestack mode)
 - `ctrl-c` or `q`: exit
 
 kwargs:
@@ -209,8 +209,6 @@ function play(io::IO, arr::T, dim::Int; fps::Real=30, maxsize::Tuple = displaysi
                     end
                 end
                 keyin in ['p',' '] && (paused = !paused)
-                keyin == 'o' && (frame = frame <= 1 ? 1 : frame - 1)
-                keyin == '[' && (frame = frame >= nframes ? nframes : frame + 1)
                 keyin in ['\x03','q'] && (finished = true)
             end
         catch

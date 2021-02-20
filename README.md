@@ -29,8 +29,8 @@ kwargs:
 
 ### Control keys:
 - `p` or `space-bar`: pause
-- `o`, `left-` or `up-arrow`: step backward (in framestack mode)
-- `[`, `right-` or `down-arrow`: step forward (in framestack mode)
+- `left-` or `up-arrow`: step backward (in framestack mode)
+- `right-` or `down-arrow`: step forward (in framestack mode)
 - `ctrl-c` or `q`: exit
 
 ### Explore
