@@ -11,10 +11,19 @@ julia> using VideoInTerminal
 julia> framestack = map(i->rand(Gray{N0f8},60,40), 1:200); # a vector of images of the same type and dims
 
 julia> play(framestack)
+
+julia> colorcube = rand(Gray{N0f8},60,40,30);
+
+julia> play(colorcube, 2) # play slices along dim 2
 ```
 kwargs:
 - `fps::Real`: play the framestack back at a target fps (default 30)
 - `maxsize::Tuple`: specify a max video size in terminal characters. Default is determined automatically
+
+Or `explore` which mimics `play` except starts paused
+```julia
+julia> explore(framestack)
+```
 
 Control keys:
 - `p`: pause
