@@ -7,7 +7,7 @@ Video playback in the terminal via. ImageInTerminal and VideoIO
 - `play(framestack)` where `framestack` is a vector of image arrays
 - `play(fpath::String)` where fpath is a path to a video file
 - `explore(...)` like `play` but starts paused
-- `webcam()` to stream the default webcam
+- `showcam()` to stream the primary system camera
 - `testvideo(name)` to show a VideoIO test video, such as "annie_oakley", or "ladybird"
 
 Control keys:
@@ -26,7 +26,7 @@ using ImageCore, ImageInTerminal, VideoIO
 
 import ImageInTerminal: TermColor256, encodeimg, SmallBlocks, BigBlocks, use_256, use_24bit
 
-export play, webcam, testvideo, explore, use_256, use_24bit
+export play, showcam, testvideo, explore, use_256, use_24bit
 
 ansi_moveup(n::Int) = string("\e[", n, "A")
 ansi_movecol1 = "\e[1G"
@@ -57,10 +57,11 @@ end
 testvideo(name::String; kwargs...) = testvideo(stdout, name; kwargs...)
 
 """
-    webcam(io::IO; kwargs...)
-    webcam(; kwargs...)
+    showcam(io::IO; kwargs...)
+    showcam(; kwargs...)
 
-Display default webcam.
+Display system camera. Defaults to first from the list that FFMPEG populates.
+i.e. `VideoInTerminal.VideoIO.CAMERA_DEVICES`
 
 Control keys:
 - `p`: pause
@@ -69,11 +70,15 @@ Control keys:
 kwargs:
 - `maxsize::Tuple = displaysize(io)``
 """
-function webcam(io::IO; kwargs...)
-    cam = VideoIO.opencamera()
+function showcam(io::IO;
+    device=VideoIO.DEFAULT_CAMERA_DEVICE[],
+    format=VideoIO.DEFAULT_CAMERA_FORMAT[],
+    options=VideoIO.DEFAULT_CAMERA_OPTIONS,
+    kwargs...)
+    cam = VideoIO.opencamera(device, format, options)
     play(io, cam; fps=cam.framerate, stream=true, kwargs...)
 end
-webcam(; kwargs...) = webcam(stdout; stream=true, kwargs...)
+showcam(; kwargs...) = showcam(stdout; stream=true, kwargs...)
 
 """
     play(v; kwargs...)

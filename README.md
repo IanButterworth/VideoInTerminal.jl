@@ -38,11 +38,21 @@ julia> play("path/to/video.mp4")
 ```
 ![ffmpeg test video example](ffmpeg_test.gif)
 
-View the default webcam
+View the primary system camera
 ```julia
-julia> webcam()
+julia> showcam()
 ```
 ![streaming webcam example](webcam.gif)
+
+or choose another capture device:
+```julia
+julia> devs = VideoInTerminal.VideoIO.CAMERA_DEVICES
+2-element Vector{String}:
+ "FaceTime HD Camera (Built-in)"
+ "Capture screen 0"
+
+julia> showcam(device=devs[2])
+```
 
 [VideoIO's test videos](https://juliaio.github.io/VideoIO.jl/stable/utilities/#Test-Videos) can also be accessed by name,
 which will be automatically downloaded
