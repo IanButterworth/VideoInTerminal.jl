@@ -1,42 +1,53 @@
 # VideoInTerminal.jl
- Video playback in terminal via. ImageInTerminal.jl and VideoIO.jl
+ Video playback in terminal via. [ImageInTerminal.jl](https://github.com/JuliaImages/ImageInTerminal.jl)
+ and [VideoIO.jl](https://github.com/JuliaIO/VideoIO.jl)
 
 Experimental! Owes a lot to ImageInTerminal!
 
 ## Usage
+
+### Play
 
 ```julia
 julia> using VideoInTerminal
 
 julia> framestack = map(i->rand(Gray{N0f8},60,40), 1:200); # a vector of images of the same type and dims
 
-julia> play(framestack)
+julia> play(framestack) # play through the framestack
 
 julia> colorcube = rand(Gray{N0f8},60,40,30);
 
 julia> play(colorcube, 2) # play slices along dim 2
+
+julia> play("path/to/video.mp4")
 ```
+![ffmpeg test video example](ffmpeg_test.gif)
+
 kwargs:
 - `fps::Real`: play the framestack back at a target fps (default 30)
-- `maxsize::Tuple`: specify a max video size in terminal characters. Default is determined automatically
+- `maxsize::Tuple`: specify a max video size in terminal characters. Default is determined from terminal window size
 
-Or `explore` which mimics `play` except starts paused
-```julia
-julia> explore(framestack)
-```
-
-Control keys:
+### Control keys
 - `p`: pause
 - `o`: step backward (in framestack mode)
 - `[`: step forward (in framestack mode)
 - `ctrl-c`: exit
 
+### Explore
 
-Play a video from a path
+`explore` methods mimic `play` methods except starting paused.
+
+Control keys enable stepping through the selected dimension
 ```julia
-julia> play("path/to/video.mp4")
+julia> using VideoInTerminal, TestImages
+
+julia> img = testimage("mri-stack");
+
+julia> explore(img, 3) # explore img along the 3rd dimension, use `o`, and `[` keys to move
 ```
-![ffmpeg test video example](ffmpeg_test.gif)
+![mri example](mri_example.png)
+
+### Camera Streaming
 
 View the primary system camera
 ```julia
@@ -53,6 +64,8 @@ julia> devs = VideoInTerminal.VideoIO.CAMERA_DEVICES
 
 julia> showcam(device=devs[2])
 ```
+
+### Test videos
 
 [VideoIO's test videos](https://juliaio.github.io/VideoIO.jl/stable/utilities/#Test-Videos) can also be accessed by name,
 which will be automatically downloaded
