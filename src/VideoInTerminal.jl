@@ -232,7 +232,7 @@ function play(io::IO, arr::T, dim::Int; fps::Real=30, maxsize::Tuple = displaysi
                         println(ios, "Preview: $(cols)x$(rows) Frame: $frame/$nframes FPS: $(round(actual_fps, digits=1))", " "^5)
                     end
                 end
-                # first_print ? print(str) : print(ansi_moveup(rows+1), ansi_movecol1, str)
+                first_print ? print(str) : print(ansi_moveup(rows+1), ansi_movecol1, str)
                 first_print = false
                 (!paused && frame == nframes) && break
                 !paused && (frame += 1)
