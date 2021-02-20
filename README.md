@@ -27,11 +27,11 @@ kwargs:
 - `fps::Real`: play the framestack back at a target fps (default 30)
 - `maxsize::Tuple`: specify a max video size in terminal characters. Default is determined from terminal window size
 
-### Control keys
-- `p`: pause
-- `o`: step backward (in framestack mode)
-- `[`: step forward (in framestack mode)
-- `ctrl-c`: exit
+### Control keys:
+- `p` or space-bar: pause
+- `o`, left or up arrows: step backward (in framestack mode)
+- `[`, right or down arrows: step forward (in framestack mode)
+- `ctrl-c` or `q`: exit
 
 ### Explore
 

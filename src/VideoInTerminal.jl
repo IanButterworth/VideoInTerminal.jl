@@ -91,9 +91,9 @@ Play a video at a filepath, a VideoIO.VideoReader object, or a framestack with a
 Framestacks should be vectors of images with a Colorant element type.
 
 Control keys:
-- `p`: pause
-- `o`: step backward (in framestack mode)
-- `[`: step forward (in framestack mode)
+- `p` or space-bar: pause
+- `o`, left or up arrows: step backward (in framestack mode)
+- `[`, right or down arrows: step forward (in framestack mode)
 - `ctrl-c`: exit
 
 kwargs:
@@ -129,8 +129,8 @@ function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io)
             setraw!(stdin, true)
             while !finished
                 keyin = read(stdin, Char)
-                keyin == 'p' && (paused = !paused)
-                keyin == '\x03' && (finished = true)
+                keyin in ['p',' '] && (paused = !paused)
+                keyin in ['\x03','q'] && (finished = true)
             end
         catch
         finally
@@ -200,10 +200,18 @@ function play(io::IO, arr::T, dim::Int; fps::Real=30, maxsize::Tuple = displaysi
             setraw!(stdin, true)
             while !finished
                 keyin = read(stdin, Char)
-                keyin == 'p' && (paused = !paused)
+                if UInt8(keyin) == 27
+                    keyin = read(stdin, Char)
+                    if UInt8(keyin) == 91
+                        keyin = read(stdin, Char)
+                        UInt8(keyin) in [68,65] && (frame = frame <= 1 ? 1 : frame - 1) # left & up arrows
+                        UInt8(keyin) in [67,66] && (frame = frame >= nframes ? nframes : frame + 1) # right & down arrows
+                    end
+                end
+                keyin in ['p',' '] && (paused = !paused)
                 keyin == 'o' && (frame = frame <= 1 ? 1 : frame - 1)
                 keyin == '[' && (frame = frame >= nframes ? nframes : frame + 1)
-                keyin == '\x03' && (finished = true)
+                keyin in ['\x03','q'] && (finished = true)
             end
         catch
         finally
@@ -226,7 +234,7 @@ function play(io::IO, arr::T, dim::Int; fps::Real=30, maxsize::Tuple = displaysi
                         println(ios, "Preview: $(cols)x$(rows) Frame: $frame/$nframes FPS: $(round(actual_fps, digits=1))", " "^5)
                     end
                 end
-                first_print ? print(str) : print(ansi_moveup(rows+1), ansi_movecol1, str)
+                # first_print ? print(str) : print(ansi_moveup(rows+1), ansi_movecol1, str)
                 first_print = false
                 (!paused && frame == nframes) && break
                 !paused && (frame += 1)
