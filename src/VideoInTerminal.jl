@@ -57,8 +57,7 @@ end
 testvideo(name::String; kwargs...) = testvideo(stdout, name; kwargs...)
 
 """
-    showcam(io::IO; kwargs...)
-    showcam(; kwargs...)
+    showcam(io::IO=stdout; kwargs...)
 
 Display system camera. Defaults to first from the list that FFMPEG populates.
 i.e. `VideoInTerminal.VideoIO.CAMERA_DEVICES`
@@ -68,9 +67,12 @@ Control keys:
 - `ctrl-c` or `q`: exit
 
 kwargs:
-- `maxsize::Tuple = displaysize(io)``
+- `maxsize::Tuple = displaysize(io)`
+- `device=VideoIO.DEFAULT_CAMERA_DEVICE[]`
+- `format=VideoIO.DEFAULT_CAMERA_FORMAT[]`
+- `options=VideoIO.DEFAULT_CAMERA_OPTIONS`
 """
-function showcam(io::IO;
+function showcam(io::IO=stdout;
     device=VideoIO.DEFAULT_CAMERA_DEVICE[],
     format=VideoIO.DEFAULT_CAMERA_FORMAT[],
     options=VideoIO.DEFAULT_CAMERA_OPTIONS,
@@ -78,7 +80,6 @@ function showcam(io::IO;
     cam = VideoIO.opencamera(device, format, options)
     play(io, cam; fps=cam.framerate, stream=true, kwargs...)
 end
-showcam(; kwargs...) = showcam(stdout; stream=true, kwargs...)
 
 """
     play(v; kwargs...)
