@@ -152,7 +152,7 @@ function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io)
                 lines, rows, cols = encodeimg(blocks, c, img, io_h, io_w)
                 str = sprint() do ios
                     println.((ios,), lines)
-                    println(ios, "Preview: $(cols)x$(rows) FPS: $(round(actual_fps, digits=1)). Frame: $frame")
+                    println(ios, "ctrl-c to exit. Preview: $(cols)x$(rows) FPS: $(round(actual_fps, digits=1)). Frame: $frame")
                 end
                 frame == 1 ? print(str) : print(ansi_moveup(rows+1), ansi_movecol1, str)
                 first_print = false
