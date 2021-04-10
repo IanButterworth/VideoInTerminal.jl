@@ -78,7 +78,7 @@ function showcam(io::IO=stdout;
     options=VideoIO.DEFAULT_CAMERA_OPTIONS,
     kwargs...)
     cam = VideoIO.opencamera(device, format, options)
-    play(io, cam; fps=cam.framerate, stream=true, kwargs...)
+    play(io, cam; fps=30, stream=true, max_loops=5, kwargs...)
 end
 
 """
@@ -104,7 +104,7 @@ kwargs:
 """
 play(v; kwargs...) = play(stdout, v; kwargs...)
 play(io::IO, fpath::String; kwargs...) = play(io, VideoIO.openvideo(fpath); kwargs...)
-function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io), stream::Bool=false, paused = false) where {T<:VideoIO.VideoReader}
+function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io), stream::Bool=false, paused = false, max_loops = 1) where {T<:VideoIO.VideoReader}
     # sizing
     img = read(vreader)
     try
@@ -148,9 +148,11 @@ function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io)
                     wait(tim)
                     continue
                 end
-                while !eof(vreader)
+                nloops = 0
+                while nloops < max_loops && !eof(vreader)
                     VideoIO.read!(vreader, img)
                     img_shown = false
+                    nloops += 1
                 end
                 if img_shown
                     wait(tim)
