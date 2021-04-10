@@ -123,6 +123,7 @@ function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io)
     finished = false
     first_print = true
     actual_fps = 0
+    img_shown = false
 
     println(summary(img))
     keytask = @async begin
@@ -143,9 +144,15 @@ function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io)
         while !finished
             tim = Timer(1/fps)
             t = @elapsed begin
-                if !paused && !eof(vreader)
+                if paused
+                    wait(tim)
+                    continue
+                end
+                while !eof(vreader)
                     VideoIO.read!(vreader, img)
-                else
+                    img_shown = false
+                end
+                if img_shown
                     wait(tim)
                     continue
                 end
@@ -158,6 +165,7 @@ function play(io::IO, vreader::T; fps::Real=30, maxsize::Tuple = displaysize(io)
                 first_print = false
                 (!stream && !paused && eof(vreader)) && break
                 !paused && (frame += 1)
+                img_shown = true
                 wait(tim)
             end
             actual_fps = 1 / t
