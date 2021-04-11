@@ -76,9 +76,10 @@ function showcam(io::IO=stdout;
     device=VideoIO.DEFAULT_CAMERA_DEVICE[],
     format=VideoIO.DEFAULT_CAMERA_FORMAT[],
     options=VideoIO.DEFAULT_CAMERA_OPTIONS,
+    max_loops = 2,
     kwargs...)
     cam = VideoIO.opencamera(device, format, options)
-    play(io, cam; fps=30, stream=true, max_loops=5, kwargs...)
+    play(io, cam; fps=30, stream=true, max_loops=max_loops, kwargs...)
 end
 
 """
