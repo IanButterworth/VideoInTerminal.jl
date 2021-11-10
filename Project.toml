@@ -8,7 +8,7 @@ ImageInTerminal = "d8c32880-2388-543b-8c61-d9f865259254"
 VideoIO = "d6d074c3-1acf-5d4c-9a43-ef38773959a2"
 
 [compat]
-ImageCore = "0.8"
+ImageCore = "0.8, 0.9"
 ImageInTerminal = "0.4"
 VideoIO = "0.8, 0.9"
 julia = "1"
