@@ -10,5 +10,5 @@ VideoIO = "d6d074c3-1acf-5d4c-9a43-ef38773959a2"
 [compat]
 ImageCore = "0.8, 0.9"
 ImageInTerminal = "0.4"
-VideoIO = "0.8, 0.9"
+VideoIO = "0.8, 0.9, 1"
 julia = "1"
