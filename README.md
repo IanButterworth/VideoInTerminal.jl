@@ -57,6 +57,10 @@ julia> showcam()
 
 or choose another capture device:
 ```julia
+julia> VideoIO.init_camera_devices()
+
+julia> VideoIO.init_camera_settings()
+
 julia> devs = VideoInTerminal.VideoIO.CAMERA_DEVICES
 2-element Vector{String}:
  "FaceTime HD Camera (Built-in)"
