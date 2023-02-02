@@ -78,7 +78,7 @@ function showcam(io::IO=stdout;
     options=nothing,
     max_loops = 2,
     kwargs...)
-    if device === nothing || options === nothing
+    if device === nothing || format === nothing || options === nothing
         VideoIO.init_camera_devices()
         VideoIO.init_camera_settings()
         isnothing(device) && (device = VideoIO.DEFAULT_CAMERA_DEVICE[])
