@@ -73,11 +73,20 @@ kwargs:
 - `options=VideoIO.DEFAULT_CAMERA_OPTIONS`
 """
 function showcam(io::IO=stdout;
-    device=VideoIO.DEFAULT_CAMERA_DEVICE[],
-    format=VideoIO.DEFAULT_CAMERA_FORMAT[],
-    options=VideoIO.DEFAULT_CAMERA_OPTIONS,
+    device=nothing,
+    format=nothing,
+    options=nothing,
     max_loops = 2,
     kwargs...)
+    if device === nothing
+        VideoIO.init_camera_devices()
+        device=VideoIO.DEFAULT_CAMERA_DEVICE[]
+        format=VideoIO.DEFAULT_CAMERA_FORMAT[]
+    end
+    if options === nothing
+        VideoIO.init_camera_settings()
+        options=VideoIO.DEFAULT_CAMERA_OPTIONS
+    end
     cam = VideoIO.opencamera(device, format, options)
     play(io, cam; fps=30, stream=true, max_loops=max_loops, kwargs...)
 end
