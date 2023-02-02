@@ -78,14 +78,12 @@ function showcam(io::IO=stdout;
     options=nothing,
     max_loops = 2,
     kwargs...)
-    if device === nothing
+    if device === nothing || options === nothing
         VideoIO.init_camera_devices()
-        device=VideoIO.DEFAULT_CAMERA_DEVICE[]
-        format=VideoIO.DEFAULT_CAMERA_FORMAT[]
-    end
-    if options === nothing
         VideoIO.init_camera_settings()
-        options=VideoIO.DEFAULT_CAMERA_OPTIONS
+        isnothing(device) && (device = VideoIO.DEFAULT_CAMERA_DEVICE[])
+        isnothing(format) && (format = VideoIO.DEFAULT_CAMERA_FORMAT[])
+        isnothing(options) && (options = VideoIO.DEFAULT_CAMERA_OPTIONS)
     end
     cam = VideoIO.opencamera(device, format, options)
     play(io, cam; fps=30, stream=true, max_loops=max_loops, kwargs...)
